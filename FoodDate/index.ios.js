@@ -9,18 +9,66 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  TabBarIOS
 } from 'react-native';
 
 import Home from './home'
+import Profile from './testProfile.js'
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+
 
 export default class FoodDate extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      selectedTab: 'Home'
+    };
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <Home />
-      </View>
-    );
+
+      <TabBarIOS
+        unselectedTintColor="black"
+        selectedTab={this.state.selectedTab}>
+        <TabBarIOS.Item
+          title="Profile"
+          selected={this.state.selectedTab === 'Profile'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'Profile'
+            });
+          }}>
+         <Profile />
+
+        </TabBarIOS.Item>
+
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'Home'}
+          title="Swipe Screen"
+
+          onPress={() => {
+            this.setState({
+              selectedTab: 'Home'
+            });
+          }}>
+          <Home />
+        </TabBarIOS.Item>
+
+        <TabBarIOS.Item
+          title="Test Profile"
+          selected={this.state.selectedTab === 'Profile'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'Profile'
+            });
+          }}>
+         <Profile />
+        </TabBarIOS.Item>
+
+      </TabBarIOS>
+    )
   }
 }
 
@@ -29,7 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'blue',
   },
   welcome: {
     fontSize: 20,
@@ -41,6 +89,11 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  icon: {
+    width:30,
+    height:30,
+    marginTop: 1
+  }
 });
 
 AppRegistry.registerComponent('FoodDate', () => FoodDate);

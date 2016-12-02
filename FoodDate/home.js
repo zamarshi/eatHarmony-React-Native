@@ -38,11 +38,11 @@ const Cards = [{
   "description": ""
 }, {
   "id": 2,
-  "first_name": "Nina",
+  "first_name": "Jeff",
   "age": 27,
   "friends": 16,
   "interests": 49,
-  "image": image7,
+  "image": image5,
   "description": ""
 }, {
   "id": 3,
@@ -202,7 +202,6 @@ const styles = StyleSheet.create({
     borderColor:'grey',
     width: 350,
     height: 420,
-
   }
 
 });
