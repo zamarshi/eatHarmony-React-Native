@@ -14,9 +14,12 @@ import {
 } from 'react-native';
 
 import Home from './home'
-import Profile from './testProfile.js'
+// import Profile from './testProfile.js'
+import Settings from './settings.js'
+import Matches from './matches.js'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+const Cities = ['Yaletown', 'Gastown', 'Kits', 'Dunbar', 'Coal Harbour', 'North Van', 'Burnaby', 'Surrey', 'Richmond']
 
 
 export default class FoodDate extends Component {
@@ -28,19 +31,18 @@ export default class FoodDate extends Component {
   }
   render() {
     return (
-
       <TabBarIOS
         unselectedTintColor="black"
         selectedTab={this.state.selectedTab}>
         <TabBarIOS.Item
-          title="Profile"
-          selected={this.state.selectedTab === 'Profile'}
+          title="Settings"
+          selected={this.state.selectedTab === 'Settings'}
           onPress={() => {
             this.setState({
-              selectedTab: 'Profile'
+              selectedTab: 'Settings'
             });
           }}>
-         <Profile />
+         <Settings locations={this.Cities} />
 
         </TabBarIOS.Item>
 
@@ -57,14 +59,14 @@ export default class FoodDate extends Component {
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
-          title="Test Profile"
-          selected={this.state.selectedTab === 'Profile'}
+          title="Matches"
+          selected={this.state.selectedTab === 'Matches'}
           onPress={() => {
             this.setState({
-              selectedTab: 'Profile'
+              selectedTab: 'Matches'
             });
           }}>
-         <Profile />
+         <Matches />
         </TabBarIOS.Item>
 
       </TabBarIOS>
