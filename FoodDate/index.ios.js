@@ -19,7 +19,8 @@ import Settings from './settings.js'
 import Matches from './matches.js'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Cities = ['Yaletown', 'Gastown', 'Kits', 'Dunbar', 'Coal Harbour', 'North Van', 'Burnaby', 'Surrey', 'Richmond']
+const Locations = ['Yaletown', 'Gastown', 'Kits', 'Dunbar', 'Coal Harbour', 'North Van', 'Burnaby', 'Surrey', 'Richmond']
+const Cuisines = ['Japanese', 'Chinese', 'Italian', 'French', 'Canadian', 'Burgers', 'Fast Food', 'Vietnamese', 'Greek', 'Bars and Pubs', 'Indian']
 
 
 export default class FoodDate extends Component {
@@ -29,10 +30,11 @@ export default class FoodDate extends Component {
       selectedTab: 'Home'
     };
   }
+
+
   render() {
     return (
       <TabBarIOS
-        unselectedTintColor="black"
         selectedTab={this.state.selectedTab}>
         <TabBarIOS.Item
           title="Settings"
@@ -42,14 +44,13 @@ export default class FoodDate extends Component {
               selectedTab: 'Settings'
             });
           }}>
-         <Settings locations={this.Cities} />
-
+         <Settings locations={Locations} cuisines={Cuisines}/>
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
           selected={this.state.selectedTab === 'Home'}
           title="Swipe Screen"
-
+          iconName='ios-home-outline'
           onPress={() => {
             this.setState({
               selectedTab: 'Home'

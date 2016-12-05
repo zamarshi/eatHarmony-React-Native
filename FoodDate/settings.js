@@ -23,17 +23,23 @@ import SettingsList from 'react-native-settings-list';
 import Location from './testProfile.js'
 const Item = Picker.Item;
 
+// This Class is to display the settings screen on the Navigation Tab Bar
+// As well as to render the Modals that appear when you select a Location
+// or Cuisine to Change
 
 export default class Settings extends Component {
-  constructor(){
-      super();
+  constructor(props){
+      super(props);
       this.onValueChange = this.onValueChange.bind(this);
+      //default states for users.
       this.state = {
         switchValue: false,
         openLocation: false,
         openCuisine: false,
         location: 'Yaletown',
-        cuisine: 'Japanese'
+        cuisine: 'Japanese',
+        locations: props.locations,
+        cuisines: props.cuisines
         };
       }
 
@@ -44,11 +50,14 @@ export default class Settings extends Component {
             <Text style={{alignSelf:'center',marginTop:30,marginBottom:10,fontWeight:'bold',fontSize:16}}>Settings</Text>
           </View>
           <View style={{backgroundColor:'#EFEFF4',flex:1}}>
+            {/* SettingsList is imported from a package. It makes it easy to
+              render the list that looks like IOS Settings. */}
             <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
               <SettingsList.Header headerStyle={{marginTop:15}}/>
               <SettingsList.Item
                 icon={
-                    <Image style={styles.imageStyle} source={require('./tinder-icon.png')}/>
+                    <Image style={styles.imageStyle}
+                      source={require('./toastIcon.png')}/>
                 }
                 hasSwitch={true}
                 switchState={this.state.switchValue}
@@ -58,30 +67,25 @@ export default class Settings extends Component {
                 titleStyle={{fontSize:16}}
               />
               <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('./tinder-icon.png')}/>}
+                icon={<Image style={styles.imageStyle} source={require('./locationIcon.png')}/>}
                 title='Location'
                 titleStyle={{fontSize:16}}
-                titleInfo=''
+                titleInfo={this.state.location}
                 titleInfoStyle={styles.titleInfoStyle}
                 onPress={() => this.setState({openLocation: true})}
               />
               <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('./tinder-icon.png')}/>}
+                icon={<Image style={styles.imageStyle} source={require('./cuisineIcon.png')}/>}
                 title='Cuisine'
                 titleStyle={{fontSize:16}}
-                titleInfo=''
+                titleInfo={this.state.cuisine}
                 titleInfoStyle={styles.titleInfoStyle}
-                onPress={() => this.renderComponent('Location')}
-              />
-              <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('./tinder-icon.png')}/>}
-                title='Restaurant'
-                titleStyle={{fontSize:16}}
-                onPress={() => renderComponent('Location')}
+                onPress={() => this.setState({openCuisine: true})}
               />
             </SettingsList>
           </View>
           {this.locationModal()}
+          {this.cuisineModal()}
         </View>
       );
     }
@@ -90,8 +94,8 @@ export default class Settings extends Component {
       this.setState({switchValue: value});
     }
 
+// Location Modal is the screen that renders when you click the location setting
     locationModal(){
-      console.log(this.state)
       return(
       <Modal
           open={this.state.openLocation}
@@ -100,31 +104,10 @@ export default class Settings extends Component {
           style={{alignItems: 'center'}}
           >
             <Text style={{fontSize: 20, marginBottom:10}}>Choose Your Location: </Text>
-            <TouchableOpacity
-              style={{margin:5}}
-              onPress={() => this.setState({location: 'Yaletown'})}>
-              <Text> Yaletown </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{margin:5}}
-              onPress={() => this.setState({location: 'Gastown'})}>
-              <Text> Gastown </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{margin:5}}
-              onPress={() => this.setState({location: 'Kits'})}>
-              <Text> Kits </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{margin:5}}
-              onPress={() => this.setState({location: 'Broadway'})}>
-              <Text> Broadway </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{margin:5}}
-              onPress={() => this.setState({location: 'Coal Harbour'})}>
-              <Text> Coal Harbour </Text>
-            </TouchableOpacity>
+            {/*locationModalList takes the array of locations passed from the
+              head branch and displays them in the modal  */}
+            {this.locationModalList()}
+
             <TouchableOpacity
               style={{margin:5}}
               onPress={() => this.setState({openLocation: false})}>
@@ -133,15 +116,64 @@ export default class Settings extends Component {
       </Modal>
     )}
 
+    // cuisineModal does the same thing as location modal but for the list of
+    // cuisines
+    cuisineModal(){
+      return(
+      <Modal
+          open={this.state.openCuisine}
+          modalDidOpen={()=> console.log('modal did open')}
+          modalDidclose={() => this.setState({openCuisine: false})}
+          style={{alignItems: 'center'}}
+          >
+            <Text style={{fontSize: 20, marginBottom:10}}>Choose Your Cuisine: </Text>
 
+            {this.cuisineModalList()}
+            <TouchableOpacity
+              style={{margin:5}}
+              onPress={() => this.setState({openCuisine: false})}>
+              <Text> Save </Text>
+            </TouchableOpacity>
+      </Modal>
+    )}
+
+
+
+    locationModalList(){
+
+      var locs = this.state.locations.map(function(city, index){
+        return(
+        <TouchableOpacity
+          style={{margin:5}}
+          key={index}
+          onPress={() => this.setState({location: city, openLocation: false})}>
+          <Text> {city} </Text>
+        </TouchableOpacity>
+      )
+    }.bind(this))
+      return locs
+    }
+    cuisineModalList(){
+      var cuis = this.state.cuisines.map(function(cuisine, index){
+        return(
+        <TouchableOpacity
+          style={{margin:5}}
+          key={index}
+          onPress={() => this.setState({cuisine: cuisine, openCuisine: false})}>
+          <Text> {cuisine} </Text>
+        </TouchableOpacity>
+      )
+    }.bind(this))
+      return cuis
+    }
 
   }
   const styles = StyleSheet.create({
     imageStyle:{
       marginLeft:15,
       alignSelf:'center',
-      height:30,
-      width:30
+      height:35,
+      width:35
     },
     titleInfoStyle:{
       fontSize:16,
