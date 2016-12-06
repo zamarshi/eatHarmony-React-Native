@@ -28,6 +28,10 @@ var image5 = require('./image5.jpg')
 var image6 = require('./image6.jpg')
 var image7 = require('./image7.jpg')
 
+
+
+
+
 const Cards = [{
   "id": 1,
   "first_name": "Calvin",
@@ -42,7 +46,7 @@ const Cards = [{
   "age": 27,
   "friends": 16,
   "interests": 49,
-  "image": image5,
+  "image": image3,
   "description": ""
 }, {
   "id": 3,
@@ -50,7 +54,7 @@ const Cards = [{
   "age": 29,
   "friends": 2,
   "interests": 39,
-  "image": image3,
+  "image": image4,
   "description": ""
 }, {
   "id": 4,
@@ -66,7 +70,7 @@ const Cards = [{
   "age": 29,
   "friends": 2,
   "interests": 39,
-  "image": image5,
+  "image": image3,
   "description": ''
 }, {
   "id": 6,
@@ -74,7 +78,7 @@ const Cards = [{
   "age": 29,
   "friends": 2,
   "interests": 39,
-  "image": image6,
+  "image": image3,
   "description": ''
 }]
 

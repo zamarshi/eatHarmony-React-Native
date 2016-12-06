@@ -3,6 +3,8 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+// tweet to @notbrent -- example of how icons might work
+
 
 import React, { Component } from 'react';
 import {
@@ -36,8 +38,10 @@ export default class FoodDate extends Component {
     return (
       <TabBarIOS
         selectedTab={this.state.selectedTab}>
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           title="Settings"
+          iconName='gear'
+          iconColor='purple'
           selected={this.state.selectedTab === 'Settings'}
           onPress={() => {
             this.setState({
@@ -45,22 +49,23 @@ export default class FoodDate extends Component {
             });
           }}>
          <Settings locations={Locations} cuisines={Cuisines}/>
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
 
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           selected={this.state.selectedTab === 'Home'}
           title="Swipe Screen"
-          iconName='ios-home-outline'
+          iconName='home'
           onPress={() => {
             this.setState({
               selectedTab: 'Home'
             });
           }}>
           <Home />
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
 
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           title="Matches"
+          iconName='star'
           selected={this.state.selectedTab === 'Matches'}
           onPress={() => {
             this.setState({
@@ -68,7 +73,7 @@ export default class FoodDate extends Component {
             });
           }}>
          <Matches />
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
 
       </TabBarIOS>
     )
