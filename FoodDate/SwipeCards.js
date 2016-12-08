@@ -62,6 +62,7 @@ class SwipeCards extends Component {
       pan: new Animated.ValueXY(),
       enter: new Animated.Value(0.5),
       card: this.props.cards ? this.props.cards[0] : null,
+      liker: this.props.cards? this.props.cards[0].liker : null
     }
   }
 
@@ -188,52 +189,51 @@ class SwipeCards extends Component {
     let nopeScale = pan.x.interpolate({inputRange: [-150, 0], outputRange: [1, 0.5], extrapolate: 'clamp'});
     let animatedNopeStyles = {transform: [{scale: nopeScale}], opacity: nopeOpacity}
 
-        return (
-            <View style={this.props.containerStyle}>
-                { this.state.card
-                    ? (
-                    <Animated.View style={[this.props.cardStyle, animatedCardstyles]} {...this._panResponder.panHandlers}>
-                        {this.renderCard(this.state.card)}
-                    </Animated.View>
-                )
-                    : this.renderNoMoreCards() }
+return (
+  <View style={this.props.containerStyle}>
+    {this.state.card?
+      (
+        <Animated.View style={[this.props.cardStyle, animatedCardstyles]}
+          {...this._panResponder.panHandlers}>
+          {this.renderCard(this.state.card)}
+        </Animated.View>
+      )
+      : this.renderNoMoreCards() }
 
 
-                { this.props.renderNope
-                  ? this.props.renderNope(pan)
-                  : (
-                      this.props.showNope
-                      ? (
-                        <Animated.View style={[this.props.nopeStyle, animatedNopeStyles]}>
-                            {this.props.noView
-                                ? this.props.noView
-                                : <Text style={this.props.nopeTextStyle}>{this.props.noText ? this.props.noText : "Nope!"}</Text>
-                            }
-                        </Animated.View>
-                        )
-                      : null
-                    )
-                }
+    { this.props.renderNope?
+      this.props.renderNope(pan)
+      : (this.props.showNope?
+        (
+          <Animated.View style={[this.props.nopeStyle, animatedNopeStyles]}>
+            {this.props.noView?
+              this.props.noView
+              : <Text style={this.props.nopeTextStyle}>{this.props.noText ? this.props.noText : "Nope!"}</Text>
+            }
+          </Animated.View>
+        )
+        : null
+      )
+    }
 
-                { this.props.renderYup
-                  ? this.props.renderYup(pan)
-                  : (
-                      this.props.showYup
-                      ? (
-                        <Animated.View style={[this.props.yupStyle, animatedYupStyles]}>
-                            {this.props.yupView
-                                ? this.props.yupView
-                                : <Text style={this.props.yupTextStyle}>{this.props.yupText? this.props.yupText : "Yup!"}</Text>
-                            }
-                        </Animated.View>
-                      )
-                      : null
-                    )
-                }
+    { this.props.renderYup?
+      this.props.renderYup(pan):
+      (this.props.showYup?
+        (
+          <Animated.View style={[this.props.yupStyle, animatedYupStyles]}>
+            {this.props.yupView?
+              this.props.yupView
+              : <Text style={this.props.yupTextStyle}>{this.props.yupText? this.props.yupText : "Yup!"}</Text>
+            }
+          </Animated.View>
+        )
+        : null
+      )
+    }
 
-            </View>
-    );
-  }
+</View>
+);
+}
 }
 
 SwipeCards.propTypes = {

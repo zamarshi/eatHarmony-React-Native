@@ -4,27 +4,55 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import {
+ import React, { Component } from 'react';
+ import Modal from 'react-native-simple-modal';
 
-  StyleSheet,
-  Image,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  View,
-  ScrollView
-} from 'react-native';
+ import {
 
+   StyleSheet,
+   Image,
+   Text,
+   Alert,
+   TouchableOpacity,
+   Dimensions,
+   Picker,
+   View,
+   ScrollView
+ } from 'react-native';
+
+ // import Nav from './global-widgets/nav'
+
+ import SwipeCards from './SwipeCards';
+ import Icon from 'react-native-vector-icons/FontAwesome';
+
+ import Iconz from 'react-native-vector-icons/Ionicons';
 export default class Matches extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      openMatch: true
+    }
+  }
 
   render() {
     return (
         <View style={styles.container}>
-          <Text> Hey this is the Matches view </Text>
-          <View>
-          <Image style={{height: 300, width: 200}} source={require('./tinder-icon.png')}/>
-        </View>
+          <Text>
+            Why wont the Modal work
+          </Text>
+          <Modal
+            open={this.state.openMatch}
+            modalDidOpen={()=> console.log('Match!')}
+            modalDidClose={() => console.log('Boo')}
+            style={{alignItems: 'center'}}
+            >
+              <Text style={{fontSize: 20, marginBottom:10}}>You've got a Match! </Text>
+              <TouchableOpacity
+                style={{margin:5}}
+                onPress={() => this.setState({openMatch: false})}>
+                <Text> Keep Playing! </Text>
+              </TouchableOpacity>
+            </Modal>
         </View>
     )
   }
@@ -38,6 +66,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  
   row: {
     flexDirection:'row',
     margin:15,

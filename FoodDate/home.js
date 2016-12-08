@@ -5,14 +5,21 @@
  */
 
 import React, { Component } from 'react';
+import Modal from 'react-native-simple-modal';
+
 import {
 
   StyleSheet,
   Image,
   Text,
+  Alert,
   TouchableOpacity,
-  View
+  Dimensions,
+  Picker,
+  View,
+  ScrollView
 } from 'react-native';
+
 // import Nav from './global-widgets/nav'
 
 import SwipeCards from './SwipeCards';
@@ -38,8 +45,9 @@ const Cards = [{
   "age": 21,
   "friends": 9,
   "interests": 38,
-  "image": image4,
-  "description": ""
+  "image": image2,
+  "description": "",
+  "liker": true
 }, {
   "id": 2,
   "first_name": "Jeff",
@@ -47,7 +55,8 @@ const Cards = [{
   "friends": 16,
   "interests": 49,
   "image": image3,
-  "description": ""
+  "description": "",
+  "liker": false
 }, {
   "id": 3,
   "first_name": "Dog",
@@ -55,7 +64,8 @@ const Cards = [{
   "friends": 2,
   "interests": 39,
   "image": image4,
-  "description": ""
+  "description": "",
+  "liker": true
 }, {
   "id": 4,
   "first_name": "Cat",
@@ -63,7 +73,8 @@ const Cards = [{
   "friends": 18,
   "interests": 50,
   "image": image4,
-  "description": ''
+  "description": '',
+  "liker": true
 }, {
   "id": 5,
   "first_name": "Jessica",
@@ -71,7 +82,8 @@ const Cards = [{
   "friends": 2,
   "interests": 39,
   "image": image3,
-  "description": ''
+  "description": '',
+  'liker':true
 }, {
   "id": 6,
   "first_name": "Sho",
@@ -79,14 +91,19 @@ const Cards = [{
   "friends": 2,
   "interests": 39,
   "image": image3,
-  "description": ''
+  "description": '',
+  'liker':true
 }]
 
 export default class Home extends Component {
   constructor(props){
     super(props)
+    this.handleYup = this.handleYup.bind(this);
+    this.handleNope = this.handleNope.bind(this);
     this.state = {
-      cards: Cards
+      cards: Cards,
+      openMatch: false,
+      currentMatchCard: Cards[0]
     }
   }
   Card(x){
@@ -108,12 +125,42 @@ export default class Home extends Component {
       </View>
     )
   }
-    handleYup (card) {
-    console.log(`Yup for ${card.text}`)
+
+  matchModal() {
+    console.log(this.state.openMatch)
+    return(
+      <Modal
+        open={this.state.openMatch}
+        modalDidOpen={()=> console.log('Match!')}
+        modalDidclose={() => this.setState({openMatch: false})}
+        modalStyle={styles.matchDesign}
+        >
+          <Text style={styles.matchTextDesign}>It's a Match! </Text>
+          <Text style={{color:'white'}}> You and {this.state.currentMatchCard.first_name} have liked each other! </Text>
+          <TouchableOpacity
+            style={{margin:5}}
+            onPress={() => this.setState({openMatch: false})}>
+            <Text style={{color:'white'}}> Keep Playing! </Text>
+          </TouchableOpacity>
+    </Modal>
+  )
+
+  }
+
+
+  handleYup (card) {
+    console.log('in method handleYup')
+    console.log(this.state.openMatch)
+    if (card.liker){
+      this.setState({openMatch: true})
+      console.log(this.state.openMatch)
+    }
+    this.setState({currentMatchCard: this.state.cards.shift()})
   }
 
   handleNope (card) {
     console.log(`Nope for ${card.text}`)
+    this.state.cards.shift()
   }
   noMore(){
     return (
@@ -131,19 +178,22 @@ nope(){
     console.log(this.refs['swiper'])
 this.refs['swiper']._goToNextCard()  }
 
+componentDidMount() {
+  // this.setState({openMatch: true})
+}
+
   render() {
     return (
       <View style={styles.container}>
-           {/* <Nav chat = {() => this.props.navigator.replace({id: "messages"})} toProfile = {() => this.props.navigator.replace({id:'profile'})} /> */}
-           <View style={styles.bottomThird}>
-             <View style={styles.logo}>
+
+           <View style={styles.topThird}>
+            <View style={styles.logo}>
              <Text style={styles.firstlogo}>👫 eat</Text>
              <Text style={styles.secondlogo}>Harmony 🍷</Text>
-           </View>
+            </View>
            </View>
 
-
-        <View style={styles.topThird}>
+        <View style={styles.middleThird}>
           <SwipeCards
             ref = {'swiper'}
             cards={this.state.cards}
@@ -152,8 +202,10 @@ this.refs['swiper']._goToNextCard()  }
             renderNoMoreCards={() => this.noMore()}
             handleYup={this.handleYup}
             handleNope={this.handleNope} />
+
+
         </View>
-        <View style={styles.middleThird}>
+        <View style={styles.bottomThird}>
           <TouchableOpacity style = {styles.buttons} onPress = {() => this.nope()}>
             <Iconz name='ios-close' size={45} color="#888" style={{}} />
           </TouchableOpacity>
@@ -163,9 +215,9 @@ this.refs['swiper']._goToNextCard()  }
           <TouchableOpacity style = {styles.buttons} onPress = {() => this.yup()}>
             <Iconz name='ios-heart' backgroundColor='black' size={36} color="#888" style={{marginTop:5}} />
           </TouchableOpacity>
+
         </View>
-
-
+        {this.matchModal()}
       </View>
     )
 }
@@ -190,6 +242,19 @@ const styles = StyleSheet.create({
     fontSize: 35,
     fontFamily: 'Georgia',
   },
+  matchDesign: {
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    alignItems: 'center'
+  },
+  matchTextDesign: {
+    fontSize: 36,
+    fontFamily:'Bradley Hand',
+    marginBottom:10,
+    color: 'white',
+    alignItems: 'center',
+    marginTop: 200,
+    marginBottom: 200
+  },
   buttons:{
     width:80,
     height:80,
@@ -209,20 +274,20 @@ const styles = StyleSheet.create({
     alignItems:'center',
     borderRadius:25
   },
-  bottomThird: {
+  topThird: {
     flex: 0.8,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'flex-end'
   },
-  middleThird: {
+  bottomThird: {
     flex: 1.3,
     backgroundColor: 'white',
     alignItems:'flex-start',
     justifyContent:'center',
     flexDirection: 'row'
   },
-  topThird: {
+  middleThird: {
     flex: 3
   },
    card: {
