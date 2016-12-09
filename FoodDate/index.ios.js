@@ -3,6 +3,8 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+// tweet to @notbrent -- example of how icons might work
+
 
 import React, { Component } from 'react';
 import {
@@ -14,9 +16,13 @@ import {
 } from 'react-native';
 
 import Home from './home'
-import Profile from './testProfile.js'
+// import Profile from './testProfile.js'
+import Settings from './settings.js'
+import Matches from './matches.js'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+const Locations = ['Yaletown', 'Gastown', 'Kits', 'Dunbar', 'Coal Harbour', 'North Van', 'Burnaby', 'Surrey', 'Richmond']
+const Cuisines = ['Japanese', 'Chinese', 'Italian', 'French', 'Canadian', 'Burgers', 'Fast Food', 'Vietnamese', 'Greek', 'Bars and Pubs', 'Indian']
 
 
 export default class FoodDate extends Component {
@@ -26,46 +32,48 @@ export default class FoodDate extends Component {
       selectedTab: 'Home'
     };
   }
+
+
   render() {
     return (
-
       <TabBarIOS
-        unselectedTintColor="black"
         selectedTab={this.state.selectedTab}>
-        <TabBarIOS.Item
-          title="Profile"
-          selected={this.state.selectedTab === 'Profile'}
+        <Icon.TabBarItemIOS
+          title="Settings"
+          iconName='gear'
+          iconColor='purple'
+          selected={this.state.selectedTab === 'Settings'}
           onPress={() => {
             this.setState({
-              selectedTab: 'Profile'
+              selectedTab: 'Settings'
             });
           }}>
-         <Profile />
+         <Settings locations={Locations} cuisines={Cuisines}/>
+        </Icon.TabBarItemIOS>
 
-        </TabBarIOS.Item>
-
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           selected={this.state.selectedTab === 'Home'}
           title="Swipe Screen"
-
+          iconName='home'
           onPress={() => {
             this.setState({
               selectedTab: 'Home'
             });
           }}>
           <Home />
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
 
-        <TabBarIOS.Item
-          title="Test Profile"
-          selected={this.state.selectedTab === 'Profile'}
+        <Icon.TabBarItemIOS
+          title="Matches"
+          iconName='star'
+          selected={this.state.selectedTab === 'Matches'}
           onPress={() => {
             this.setState({
-              selectedTab: 'Profile'
+              selectedTab: 'Matches'
             });
           }}>
-         <Profile />
-        </TabBarIOS.Item>
+         <Matches />
+        </Icon.TabBarItemIOS>
 
       </TabBarIOS>
     )
