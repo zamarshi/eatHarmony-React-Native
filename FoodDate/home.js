@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   middleThird: {
-    flex: 3
+    flex: 4
   },
    card: {
     flex: 1,

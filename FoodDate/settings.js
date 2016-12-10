@@ -137,6 +137,7 @@ export default class Settings extends Component {
       </Modal>
     )}
 
+  
 
 
     locationModalList(){

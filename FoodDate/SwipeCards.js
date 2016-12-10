@@ -16,7 +16,7 @@ import clamp from 'clamp';
 
 import Defaults from './Defaults.js';
 
-var SWIPE_THRESHOLD = 120;
+var SWIPE_THRESHOLD = 105;
 
 // Base Styles. Use props to override these values
 var styles = StyleSheet.create({
@@ -62,7 +62,6 @@ class SwipeCards extends Component {
       pan: new Animated.ValueXY(),
       enter: new Animated.Value(0.5),
       card: this.props.cards ? this.props.cards[0] : null,
-      liker: this.props.cards? this.props.cards[0].liker : null
     }
   }
 
