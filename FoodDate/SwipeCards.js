@@ -16,7 +16,7 @@ import clamp from 'clamp';
 
 import Defaults from './Defaults.js';
 
-var SWIPE_THRESHOLD = 105;
+var SWIPE_THRESHOLD = 30;
 
 // Base Styles. Use props to override these values
 var styles = StyleSheet.create({

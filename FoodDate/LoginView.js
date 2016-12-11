@@ -79,7 +79,7 @@ class LoginView extends Component {
         console.log('This is the res object:');
         console.log(res.data);
         AsyncStorage.setItem('jwt', res.data.jwt)
-        alert(`Success! You may now access protected content.`)
+        alert(`Success! You may now kill yourself.`)
         Actions.index();
       }
     })

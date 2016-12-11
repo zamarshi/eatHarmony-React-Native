@@ -20,10 +20,10 @@ return (
       </Scene>
 
         <Scene key='index' title = 'eatHarmony'>
-            <Scene key='main' component={App} />
+            <Scene key='main' component={App} title='👫 eatHarmony 🍷'/>
         </Scene>
   </Router>
-  );
+);
 };
 
 export default RouterComponent;

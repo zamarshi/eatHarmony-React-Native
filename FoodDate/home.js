@@ -6,26 +6,20 @@
 
 import React, { Component } from 'react';
 import Modal from 'react-native-simple-modal';
-
 import {
-
   StyleSheet,
   Image,
+  AsyncStorage,
   Text,
-  Alert,
   TouchableOpacity,
-  Dimensions,
-  Picker,
   View,
-  ScrollView
 } from 'react-native';
-
-// import Nav from './global-widgets/nav'
-
-import SwipeCards from './SwipeCards';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import Iconz from 'react-native-vector-icons/Ionicons';
+// import Nav from './global-widgets/nav'
+import SwipeCards from './SwipeCards';
+import axios from 'axios';
+import {Actions} from 'react-native-router-flux';
 
 var image1 = require('./image1.jpg')
 var image2 = require('./image2.jpg')
@@ -36,10 +30,10 @@ var image6 = require('./image6.jpg')
 var image7 = require('./image7.jpg')
 
 
+let testCards = [];
 
-
-
-const Cards = [{
+const Cards =
+ [{
   "id": 1,
   "first_name": "Calvin",
   "age": 21,
@@ -101,11 +95,46 @@ export default class Home extends Component {
     this.handleYup = this.handleYup.bind(this);
     this.handleNope = this.handleNope.bind(this);
     this.state = {
-      cards: Cards,
+      cards: [],
       openMatch: false,
       currentMatchCard: Cards[0]
     }
   }
+
+    fetchData() {
+     AsyncStorage.getItem('jwt', (err, token) => {
+       axios.get('http://localhost:3000/users', {
+         headers: {
+           Accept: 'application/json',
+           Authorization: `JWT ${token}`
+         }
+       }).then((userObj) => {
+         console.log(userObj.data)
+         userObj.data.forEach((user, index) => {
+           console.log(user);
+           console.log(index);
+           testCards[index] = {
+             id: user.id,
+             first_name: user.first_name,
+             age: 26,
+             friends: 2,
+             interests: 39,
+             image: image3,
+             description: '',
+             liker: true
+           };
+         });
+         console.log(testCards)
+         this.setState({ cards: testCards });
+       })
+       .catch(() => {
+         alert('There was an error fetching the users')
+       })
+       .done()
+     })
+     }
+
+
   Card(x){
     return (
       <View style={styles.card}>
@@ -148,7 +177,7 @@ export default class Home extends Component {
   }
 
 
-  handleYup (card) {
+  handleYup(card) {
     console.log('in method handleYup')
     console.log(this.state.openMatch)
     if (card.liker){
@@ -179,6 +208,7 @@ nope(){
 this.refs['swiper']._goToNextCard()  }
 
 componentDidMount() {
+    this.fetchData();
   // this.setState({openMatch: true})
 }
 
@@ -186,12 +216,7 @@ componentDidMount() {
     return (
       <View style={styles.container}>
 
-           <View style={styles.topThird}>
-            <View style={styles.logo}>
-             <Text style={styles.firstlogo}>👫 eat</Text>
-             <Text style={styles.secondlogo}>Harmony 🍷</Text>
-            </View>
-           </View>
+
 
         <View style={styles.middleThird}>
           <SwipeCards
