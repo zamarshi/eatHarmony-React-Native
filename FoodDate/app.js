@@ -20,6 +20,8 @@ import Home from './home'
 import Login from './LoginView.js'
 import Settings from './settings.js'
 import Matches from './matches.js'
+import Chat from './chat.js';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Locations = ['Yaletown', 'Gastown', 'Kits', 'Dunbar', 'Coal Harbour', 'North Van', 'Burnaby', 'Surrey', 'Richmond']
@@ -31,7 +33,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       selectedTab: 'Home',
-      
+
 
     };
   }
@@ -67,12 +69,12 @@ export default class App extends Component {
         </Icon.TabBarItemIOS>
 
         <Icon.TabBarItemIOS
-          title="Matches"
+          title="Chat"
           iconName='star'
-          selected={this.state.selectedTab === 'Matches'}
+          selected={this.state.selectedTab === 'Chat'}
           onPress={() => {
             this.setState({
-              selectedTab: 'Matches'
+              selectedTab: 'Chat'
             });
           }}>
          <Matches />

@@ -26,7 +26,8 @@ const options = {
     password: {
       autoCapitalize: 'none',
       password: true,
-      autoCorrect: false
+      autoCorrect: false,
+      secureTextEntry: true
     }
   }
 }
@@ -79,7 +80,7 @@ class LoginView extends Component {
         console.log('This is the res object:');
         console.log(res.data);
         AsyncStorage.setItem('jwt', res.data.jwt)
-        alert(`Success! You may now kill yourself.`)
+        alert(`Logged In! Start Swiping!`)
         Actions.index();
       }
     })

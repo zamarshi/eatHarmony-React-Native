@@ -7,7 +7,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-native-simple-modal';
 import {
-
   StyleSheet,
   Image,
   Text,
@@ -137,7 +136,7 @@ export default class Settings extends Component {
       </Modal>
     )}
 
-  
+
 
 
     locationModalList(){
@@ -167,6 +166,37 @@ export default class Settings extends Component {
     }.bind(this))
       return cuis
     }
+
+    // changeLocation() {
+    //  AsyncStorage.getItem('jwt', (err, token) => {
+    //    axios.patch('http://localhost:3000/users', {
+    //      headers: {
+    //        Accept: 'application/json',
+    //        Authorization: `JWT ${token}`
+    //      }
+    //    }).then((userObj) => {
+    //      console.log(userObj.data)
+    //      userObj.data.forEach((user, index) => {
+    //        testCards[index] = {
+    //          id: user.id,
+    //          first_name: user.first_name,
+    //          age: 26,
+    //          friends: 2,
+    //          interests: 39,
+    //          image: image3,
+    //          description: '',
+    //          liker: true
+    //        };
+    //      });
+    //      console.log(testCards)
+    //      this.setState({ cards: testCards });
+    //    })
+    //    .catch(() => {
+    //      alert('There was an error fetching the users')
+    //    })
+    //    .done()
+    //  })
+    //  }
 
   }
   const styles = StyleSheet.create({

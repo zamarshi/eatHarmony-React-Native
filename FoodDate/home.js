@@ -32,62 +32,6 @@ var image7 = require('./image7.jpg')
 
 let testCards = [];
 
-const Cards =
- [{
-  "id": 1,
-  "first_name": "Calvin",
-  "age": 21,
-  "friends": 9,
-  "interests": 38,
-  "image": image2,
-  "description": "",
-  "liker": true
-}, {
-  "id": 2,
-  "first_name": "Jeff",
-  "age": 27,
-  "friends": 16,
-  "interests": 49,
-  "image": image3,
-  "description": "",
-  "liker": false
-}, {
-  "id": 3,
-  "first_name": "Dog",
-  "age": 29,
-  "friends": 2,
-  "interests": 39,
-  "image": image4,
-  "description": "",
-  "liker": true
-}, {
-  "id": 4,
-  "first_name": "Cat",
-  "age": 20,
-  "friends": 18,
-  "interests": 50,
-  "image": image4,
-  "description": '',
-  "liker": true
-}, {
-  "id": 5,
-  "first_name": "Jessica",
-  "age": 29,
-  "friends": 2,
-  "interests": 39,
-  "image": image3,
-  "description": '',
-  'liker':true
-}, {
-  "id": 6,
-  "first_name": "Sho",
-  "age": 29,
-  "friends": 2,
-  "interests": 39,
-  "image": image3,
-  "description": '',
-  'liker':true
-}]
 
 export default class Home extends Component {
   constructor(props){
@@ -97,7 +41,7 @@ export default class Home extends Component {
     this.state = {
       cards: [],
       openMatch: false,
-      currentMatchCard: Cards[0]
+      currentMatchCard: []
     }
   }
 
@@ -173,8 +117,7 @@ export default class Home extends Component {
           </TouchableOpacity>
     </Modal>
   )
-
-  }
+}
 
 
   handleYup(card) {

@@ -3,6 +3,7 @@ import { Scene, Router } from 'react-native-router-flux';
 import Login from './LoginView';
 
 import App from './app.js';
+import Chats from './chat.js';
 
 
  const RouterComponent = () => {
@@ -21,7 +22,11 @@ return (
 
         <Scene key='index' title = 'eatHarmony'>
             <Scene key='main' component={App} title='👫 eatHarmony 🍷'/>
+            <Scene key='messages' component={Chats} title=' Chats '/>
         </Scene>
+
+
+
   </Router>
 );
 };
