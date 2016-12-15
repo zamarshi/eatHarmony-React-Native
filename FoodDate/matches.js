@@ -22,6 +22,12 @@ import SettingsList from 'react-native-settings-list';
 const Item = Picker.Item;
 import {Actions} from 'react-native-router-flux';
 import axios from 'axios';
+var pics = [];
+pics[0] = require('./image2.jpg');
+pics[1] = require('./image32.jpg');
+pics[2] = require('./image4.jpg');
+pics[3] = require('./image6.jpg');
+
 
 // This Class is to display the settings screen on the Navigation Tab Bar
 // As well as to render the Modals that appear when you select a Location
@@ -37,8 +43,8 @@ export default class Matches extends Component {
         };
       }
 
-      openChat(){
-        Actions.messages();
+      openChat(first_name, last_name, avatar){
+        Actions.messages({first_name, last_name, avatar});
       }
 
 
@@ -53,20 +59,6 @@ export default class Matches extends Component {
               render the list that looks like IOS Settings. */}
             <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
               {this.matchList()}
-              <SettingsList.Item
-                title='Match 1'
-                titleStyle={{fontSize:16}}
-                titleInfo={this.state.location}
-                titleInfoStyle={styles.titleInfoStyle}
-                onPress={() => this.openChat()}
-              />
-              <SettingsList.Item
-                title='Match 2'
-                titleStyle={{fontSize:16}}
-                titleInfo={this.state.cuisine}
-                titleInfoStyle={styles.titleInfoStyle}
-                onPress={() => this.openChat()}
-              />
             </SettingsList>
           </View>
         </View>
@@ -83,7 +75,6 @@ export default class Matches extends Component {
 
     getMatches() {
      AsyncStorage.getItem('jwt', (err, token) => {
-       console.log(token);
        axios.get('http://localhost:3000/matches', {
          headers: {
            Accept: 'application/json',
@@ -105,8 +96,10 @@ export default class Matches extends Component {
          return(
            <SettingsList.Item
              title={user.first_name}
+             icon={<Image style={styles.imageStyle} source={pics[index]}/>}
+             key={index}
              titleStyle={{fontSize:16}}
-             onPress={() => this.openChat()}
+             onPress={() => this.openChat(user.first_name, user.last_name, pics[index])}
            />
        )
      }.bind(this))

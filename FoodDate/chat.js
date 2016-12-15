@@ -14,10 +14,11 @@ export default class Chat extends Component  {
         {
           _id: 1,
           text: 'Hey there 😊',
-          createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+          createdAt: new Date(Date.UTC(2016, 11, 14, 17, 20, 0)),
           user: {
-            _id: 2,
-            name: 'J S',
+          _id: 2,
+          name: this.props.first_name + ' ' + this.props.last_name,
+          avatar: 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2015/03/08/09/emmawatson.jpg'
           },
         },
       ],

@@ -21,13 +21,14 @@ import SwipeCards from './SwipeCards';
 import axios from 'axios';
 import {Actions} from 'react-native-router-flux';
 
-var image1 = require('./image1.jpg')
-var image2 = require('./image2.jpg')
-var image3 = require('./image3.jpg')
-var image4 = require('./image4.jpg')
-var image5 = require('./image5.jpg')
-var image6 = require('./image6.jpg')
-var image7 = require('./image7.jpg')
+var image = [];
+ image[0] = require('./image1.jpg');
+ image[1] = require('./image2.jpg');
+ image[2] = require('./image32.jpg');
+ image[3] = require('./image4.jpg');
+ image[4] = require('./image5.jpg');
+ image[5] = require('./image6.jpg');
+ image[6] = require('./image7.jpg');
 
 
 let testCards = [];
@@ -53,22 +54,18 @@ export default class Home extends Component {
            Authorization: `JWT ${token}`
          }
        }).then((userObj) => {
-         console.log(userObj.data)
          userObj.data.forEach((user, index) => {
-           console.log(user);
-           console.log(index);
            testCards[index] = {
              id: user.id,
              first_name: user.first_name,
-             age: 26,
+             age: user.age,
              friends: 2,
              interests: 39,
-             image: image3,
+             image: image[index],
              description: '',
              liker: true
            };
          });
-         console.log(testCards)
          this.setState({ cards: testCards });
        })
        .catch(() => {
@@ -91,7 +88,7 @@ export default class Home extends Component {
           </View>
           <View style={{flexDirection:'row'}}>
             <View style={{padding:0,  borderColor:'#e3e3e3', flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
-              <Icon name='facebook-square' size={20} color="blue" />
+
             </View>
           </View>
           </View>
@@ -100,11 +97,9 @@ export default class Home extends Component {
   }
 
   matchModal() {
-    console.log(this.state.openMatch)
     return(
       <Modal
         open={this.state.openMatch}
-        modalDidOpen={()=> console.log('Match!')}
         modalDidclose={() => this.setState({openMatch: false})}
         modalStyle={styles.matchDesign}
         >
@@ -121,33 +116,27 @@ export default class Home extends Component {
 
 
   handleYup(card) {
-    console.log('in method handleYup')
-    console.log(this.state.openMatch)
     if (card.liker){
       this.setState({openMatch: true})
-      console.log(this.state.openMatch)
     }
     this.setState({currentMatchCard: this.state.cards.shift()})
   }
 
   handleNope (card) {
-    console.log(`Nope for ${card.text}`)
     this.state.cards.shift()
   }
   noMore(){
     return (
       <View>
-        <Text>No More Cards</Text>
+        <Text style={{fontSize:32}}>No More Cards</Text>
       </View>
     )
   }
 
   yup(){
-    console.log(this.refs['swiper'])
 this.refs['swiper']._goToNextCard()  }
 
 nope(){
-    console.log(this.refs['swiper'])
 this.refs['swiper']._goToNextCard()  }
 
 componentDidMount() {
@@ -183,7 +172,6 @@ componentDidMount() {
           <TouchableOpacity style = {styles.buttons} onPress = {() => this.yup()}>
             <Iconz name='ios-heart' backgroundColor='black' size={36} color="#888" style={{marginTop:5}} />
           </TouchableOpacity>
-
         </View>
         {this.matchModal()}
       </View>
@@ -211,7 +199,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Georgia',
   },
   matchDesign: {
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'rgba(0, 0, 0, 1)',
     alignItems: 'center'
   },
   matchTextDesign: {
@@ -242,21 +230,17 @@ const styles = StyleSheet.create({
     alignItems:'center',
     borderRadius:25
   },
-  topThird: {
-    flex: 0.8,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'flex-end'
-  },
+
   bottomThird: {
     flex: 1.3,
     backgroundColor: 'white',
-    alignItems:'flex-start',
+    marginTop: 30,
+    // alignItems:'flex-start',
     justifyContent:'center',
     flexDirection: 'row'
   },
   middleThird: {
-    flex: 4
+    flex: 2.4
   },
    card: {
     flex: 1,
@@ -274,5 +258,4 @@ const styles = StyleSheet.create({
     marginTop: 5,
     borderRadius: 25
   }
-
 });

@@ -25,15 +25,14 @@ import Chat from './chat.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Locations = ['Yaletown', 'Gastown', 'Kits', 'Dunbar', 'Coal Harbour', 'North Van', 'Burnaby', 'Surrey', 'Richmond']
-const Cuisines = ['Japanese', 'Chinese', 'Italian', 'French', 'Canadian', 'Burgers', 'Fast Food', 'Vietnamese', 'Greek', 'Bars and Pubs', 'Indian']
+const Cuisines = ['Japanese', 'Chinese', 'Italian', 'French', 'Canadian', 'Burgers', 'Fast Food', 'Mexican', 'Vietnamese', 'Greek', 'Bars and Pubs', 'Indian']
 
 
 export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selectedTab: 'Home',
-
+      selectedTab: 'Settings',
 
     };
   }

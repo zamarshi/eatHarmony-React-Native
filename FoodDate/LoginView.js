@@ -77,8 +77,6 @@ class LoginView extends Component {
       if (res.error) {
         alert(res.error)
       } else {
-        console.log('This is the res object:');
-        console.log(res.data);
         AsyncStorage.setItem('jwt', res.data.jwt)
         alert(`Logged In! Start Swiping!`)
         Actions.index();

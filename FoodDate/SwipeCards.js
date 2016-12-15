@@ -16,7 +16,7 @@ import clamp from 'clamp';
 
 import Defaults from './Defaults.js';
 
-var SWIPE_THRESHOLD = 30;
+var SWIPE_THRESHOLD = 110;
 
 // Base Styles. Use props to override these values
 var styles = StyleSheet.create({
@@ -122,7 +122,7 @@ class SwipeCards extends Component {
         if (vx >= 0) {
           velocity = clamp(vx, 3, 5);
         } else if (vx < 0) {
-          velocity = clamp(vx * -1, 3, 5) * -1;
+          velocity = clamp(vx * -2, 3, 5) * -1;
         }
 
         if (Math.abs(this.state.pan.x._value) > SWIPE_THRESHOLD) {
@@ -222,7 +222,7 @@ return (
           <Animated.View style={[this.props.yupStyle, animatedYupStyles]}>
             {this.props.yupView?
               this.props.yupView
-              : <Text style={this.props.yupTextStyle}>{this.props.yupText? this.props.yupText : "Yup!"}</Text>
+              : <Text style={this.props.yupTextStyle}>{this.props.yupText? this.props.yupText : "Like!"}</Text>
             }
           </Animated.View>
         )
