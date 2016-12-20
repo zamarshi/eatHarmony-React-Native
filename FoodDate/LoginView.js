@@ -106,7 +106,7 @@ class LoginView extends Component {
           onChange={this._onChange}
         />
         <TouchableHighlight onPress={this._handleAdd}>
-          <Text style={[styles.button, styles.greenButton]}>Log In</Text>
+          <Text style={[styles.button, styles.blueButton]}>Log In</Text>
         </TouchableHighlight>
       </ScrollView>
     )
@@ -126,8 +126,8 @@ var styles = StyleSheet.create({
     marginBottom: 20,
     color: '#fff'
   },
-  greenButton: {
-    backgroundColor: '#4CD964'
+  blueButton: {
+    backgroundColor: 'blue'
   },
   centering: {
     alignItems: 'center',

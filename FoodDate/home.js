@@ -23,12 +23,13 @@ import {Actions} from 'react-native-router-flux';
 
 var image = [];
  image[0] = require('./image1.jpg');
- image[1] = require('./image2.jpg');
- image[2] = require('./image32.jpg');
- image[3] = require('./image4.jpg');
- image[4] = require('./image5.jpg');
- image[5] = require('./image6.jpg');
- image[6] = require('./image7.jpg');
+ image[1] = require('./Jeff3.jpg');
+ image[2] = require('./Calvin.jpg');
+ image[3] = require('./image32.jpg');
+ image[4] = require('./tam.jpg');
+ image[5] = require('./image5.jpg');
+ image[6] = require('./image6.jpg');
+ image[7] = require('./image7.jpg');
 
 
 let testCards = [];
@@ -55,7 +56,21 @@ export default class Home extends Component {
          }
        }).then((userObj) => {
          userObj.data.forEach((user, index) => {
-           testCards[index] = {
+
+           if (index == 0 || index == 1 || index == 2 || index == 5 || index == 7){
+           testCards.push ({
+             id: user.id,
+             first_name: user.first_name,
+             age: user.age,
+             friends: 2,
+             interests: 39,
+             image: image[index],
+             description: '',
+             liker: false
+           });
+         }
+         else {
+           testCards.push ({
              id: user.id,
              first_name: user.first_name,
              age: user.age,
@@ -64,9 +79,15 @@ export default class Home extends Component {
              image: image[index],
              description: '',
              liker: true
-           };
+           });
+         }
+
+
+
+
          });
          this.setState({ cards: testCards });
+         console.log(testCards);
        })
        .catch(() => {
          alert('There was an error fetching the users')
@@ -104,11 +125,14 @@ export default class Home extends Component {
         modalStyle={styles.matchDesign}
         >
           <Text style={styles.matchTextDesign}>It's a Match! </Text>
-          <Text style={{color:'white'}}> You and {this.state.currentMatchCard.first_name} have liked each other! </Text>
+
+          <Text style={{color:'white', fontSize: 16, marginBottom: 20}}> You and {this.state.currentMatchCard.first_name} have liked each other! </Text>
           <TouchableOpacity
             style={{margin:5}}
             onPress={() => this.setState({openMatch: false})}>
-            <Text style={{color:'white'}}> Keep Playing! </Text>
+            <View  style={styles.matchContinueButton}>
+              <Text style={styles.matchContinueText}> Keep Playing! </Text>
+            </View>
           </TouchableOpacity>
     </Modal>
   )
@@ -119,7 +143,8 @@ export default class Home extends Component {
     if (card.liker){
       this.setState({openMatch: true})
     }
-    this.setState({currentMatchCard: this.state.cards.shift()})
+    this.state.currentMatchCard = this.state.cards.shift()
+
   }
 
   handleNope (card) {
@@ -147,8 +172,6 @@ componentDidMount() {
   render() {
     return (
       <View style={styles.container}>
-
-
 
         <View style={styles.middleThird}>
           <SwipeCards
@@ -200,10 +223,11 @@ const styles = StyleSheet.create({
   },
   matchDesign: {
     backgroundColor: 'rgba(0, 0, 0, 1)',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 30
   },
   matchTextDesign: {
-    fontSize: 36,
+    fontSize: 55,
     fontFamily:'Bradley Hand',
     marginBottom:10,
     color: 'white',
@@ -251,6 +275,17 @@ const styles = StyleSheet.create({
     borderColor:'#D6EAF8',
     width: 370,
     height: 440,
+  },
+  matchContinueButton: {
+    padding: 20,
+    marginBottom: 20,
+    backgroundColor: 'white',
+    borderRadius: 18,
+  },
+  matchContinueText: {
+    textAlign: 'center',
+    color: 'black',
+
   },
   pic: {
     width:325,

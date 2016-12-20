@@ -23,10 +23,10 @@ const Item = Picker.Item;
 import {Actions} from 'react-native-router-flux';
 import axios from 'axios';
 var pics = [];
-pics[0] = require('./image2.jpg');
-pics[1] = require('./image32.jpg');
-pics[2] = require('./image4.jpg');
-pics[3] = require('./image6.jpg');
+pics[0] = require('./image32.jpg');
+pics[1] = require('./tam.jpg');
+pics[2] = require('./image6.jpg');
+pics[3] = require('./image2.jpg');
 
 
 // This Class is to display the settings screen on the Navigation Tab Bar
@@ -110,6 +110,7 @@ export default class Matches extends Component {
   const styles = StyleSheet.create({
     imageStyle:{
       marginLeft:15,
+      borderRadius: 13,
       alignSelf:'center',
       height:35,
       width:35
