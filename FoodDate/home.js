@@ -6,94 +6,34 @@
 
 import React, { Component } from 'react';
 import Modal from 'react-native-simple-modal';
-
 import {
-
   StyleSheet,
   Image,
+  AsyncStorage,
   Text,
-  Alert,
   TouchableOpacity,
-  Dimensions,
-  Picker,
   View,
-  ScrollView
 } from 'react-native';
-
-// import Nav from './global-widgets/nav'
-
-import SwipeCards from './SwipeCards';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import Iconz from 'react-native-vector-icons/Ionicons';
+// import Nav from './global-widgets/nav'
+import SwipeCards from './SwipeCards';
+import axios from 'axios';
+import {Actions} from 'react-native-router-flux';
 
-var image1 = require('./image1.jpg')
-var image2 = require('./image2.jpg')
-var image3 = require('./image3.jpg')
-var image4 = require('./image4.jpg')
-var image5 = require('./image5.jpg')
-var image6 = require('./image6.jpg')
-var image7 = require('./image7.jpg')
+var image = [];
+ image[0] = require('./image1.jpg');
+ image[1] = require('./Jeff3.jpg');
+ image[2] = require('./Calvin.jpg');
+ image[3] = require('./image32.jpg');
+ image[4] = require('./tam.jpg');
+ image[5] = require('./image5.jpg');
+ image[6] = require('./image6.jpg');
+ image[7] = require('./image7.jpg');
 
 
+let testCards = [];
 
-
-
-const Cards = [{
-  "id": 1,
-  "first_name": "Calvin",
-  "age": 21,
-  "friends": 9,
-  "interests": 38,
-  "image": image2,
-  "description": "",
-  "liker": true
-}, {
-  "id": 2,
-  "first_name": "Jeff",
-  "age": 27,
-  "friends": 16,
-  "interests": 49,
-  "image": image3,
-  "description": "",
-  "liker": false
-}, {
-  "id": 3,
-  "first_name": "Dog",
-  "age": 29,
-  "friends": 2,
-  "interests": 39,
-  "image": image4,
-  "description": "",
-  "liker": true
-}, {
-  "id": 4,
-  "first_name": "Cat",
-  "age": 20,
-  "friends": 18,
-  "interests": 50,
-  "image": image4,
-  "description": '',
-  "liker": true
-}, {
-  "id": 5,
-  "first_name": "Jessica",
-  "age": 29,
-  "friends": 2,
-  "interests": 39,
-  "image": image3,
-  "description": '',
-  'liker':true
-}, {
-  "id": 6,
-  "first_name": "Sho",
-  "age": 29,
-  "friends": 2,
-  "interests": 39,
-  "image": image3,
-  "description": '',
-  'liker':true
-}]
 
 export default class Home extends Component {
   constructor(props){
@@ -101,11 +41,62 @@ export default class Home extends Component {
     this.handleYup = this.handleYup.bind(this);
     this.handleNope = this.handleNope.bind(this);
     this.state = {
-      cards: Cards,
+      cards: [],
       openMatch: false,
-      currentMatchCard: Cards[0]
+      currentMatchCard: []
     }
   }
+
+    fetchData() {
+     AsyncStorage.getItem('jwt', (err, token) => {
+       axios.get('http://localhost:3000/users', {
+         headers: {
+           Accept: 'application/json',
+           Authorization: `JWT ${token}`
+         }
+       }).then((userObj) => {
+         userObj.data.forEach((user, index) => {
+
+           if (index == 0 || index == 1 || index == 2 || index == 5 || index == 7){
+           testCards.push ({
+             id: user.id,
+             first_name: user.first_name,
+             age: user.age,
+             friends: 2,
+             interests: 39,
+             image: image[index],
+             description: '',
+             liker: false
+           });
+         }
+         else {
+           testCards.push ({
+             id: user.id,
+             first_name: user.first_name,
+             age: user.age,
+             friends: 2,
+             interests: 39,
+             image: image[index],
+             description: '',
+             liker: true
+           });
+         }
+
+
+
+
+         });
+         this.setState({ cards: testCards });
+         console.log(testCards);
+       })
+       .catch(() => {
+         alert('There was an error fetching the users')
+       })
+       .done()
+     })
+     }
+
+
   Card(x){
     return (
       <View style={styles.card}>
@@ -118,7 +109,7 @@ export default class Home extends Component {
           </View>
           <View style={{flexDirection:'row'}}>
             <View style={{padding:0,  borderColor:'#e3e3e3', flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
-              <Icon name='facebook-square' size={20} color="blue" />
+
             </View>
           </View>
           </View>
@@ -127,71 +118,60 @@ export default class Home extends Component {
   }
 
   matchModal() {
-    console.log(this.state.openMatch)
     return(
       <Modal
         open={this.state.openMatch}
-        modalDidOpen={()=> console.log('Match!')}
         modalDidclose={() => this.setState({openMatch: false})}
         modalStyle={styles.matchDesign}
         >
           <Text style={styles.matchTextDesign}>It's a Match! </Text>
-          <Text style={{color:'white'}}> You and {this.state.currentMatchCard.first_name} have liked each other! </Text>
+
+          <Text style={{color:'white', fontSize: 16, marginBottom: 20}}> You and {this.state.currentMatchCard.first_name} have liked each other! </Text>
           <TouchableOpacity
             style={{margin:5}}
             onPress={() => this.setState({openMatch: false})}>
-            <Text style={{color:'white'}}> Keep Playing! </Text>
+            <View  style={styles.matchContinueButton}>
+              <Text style={styles.matchContinueText}> Keep Playing! </Text>
+            </View>
           </TouchableOpacity>
     </Modal>
   )
+}
 
-  }
 
-
-  handleYup (card) {
-    console.log('in method handleYup')
-    console.log(this.state.openMatch)
+  handleYup(card) {
     if (card.liker){
       this.setState({openMatch: true})
-      console.log(this.state.openMatch)
     }
-    this.setState({currentMatchCard: this.state.cards.shift()})
+    this.state.currentMatchCard = this.state.cards.shift()
+
   }
 
   handleNope (card) {
-    console.log(`Nope for ${card.text}`)
     this.state.cards.shift()
   }
   noMore(){
     return (
       <View>
-        <Text>No More Cards</Text>
+        <Text style={{fontSize:32}}>No More Cards</Text>
       </View>
     )
   }
 
   yup(){
-    console.log(this.refs['swiper'])
 this.refs['swiper']._goToNextCard()  }
 
 nope(){
-    console.log(this.refs['swiper'])
 this.refs['swiper']._goToNextCard()  }
 
 componentDidMount() {
+    this.fetchData();
   // this.setState({openMatch: true})
 }
 
   render() {
     return (
       <View style={styles.container}>
-
-           <View style={styles.topThird}>
-            <View style={styles.logo}>
-             <Text style={styles.firstlogo}>👫 eat</Text>
-             <Text style={styles.secondlogo}>Harmony 🍷</Text>
-            </View>
-           </View>
 
         <View style={styles.middleThird}>
           <SwipeCards
@@ -215,7 +195,6 @@ componentDidMount() {
           <TouchableOpacity style = {styles.buttons} onPress = {() => this.yup()}>
             <Iconz name='ios-heart' backgroundColor='black' size={36} color="#888" style={{marginTop:5}} />
           </TouchableOpacity>
-
         </View>
         {this.matchModal()}
       </View>
@@ -243,11 +222,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Georgia',
   },
   matchDesign: {
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    alignItems: 'center'
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    alignItems: 'center',
+    borderRadius: 30
   },
   matchTextDesign: {
-    fontSize: 36,
+    fontSize: 55,
     fontFamily:'Bradley Hand',
     marginBottom:10,
     color: 'white',
@@ -274,21 +254,17 @@ const styles = StyleSheet.create({
     alignItems:'center',
     borderRadius:25
   },
-  topThird: {
-    flex: 0.8,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'flex-end'
-  },
+
   bottomThird: {
     flex: 1.3,
     backgroundColor: 'white',
-    alignItems:'flex-start',
+    marginTop: 30,
+    // alignItems:'flex-start',
     justifyContent:'center',
     flexDirection: 'row'
   },
   middleThird: {
-    flex: 3
+    flex: 2.4
   },
    card: {
     flex: 1,
@@ -300,11 +276,21 @@ const styles = StyleSheet.create({
     width: 370,
     height: 440,
   },
+  matchContinueButton: {
+    padding: 20,
+    marginBottom: 20,
+    backgroundColor: 'white',
+    borderRadius: 18,
+  },
+  matchContinueText: {
+    textAlign: 'center',
+    color: 'black',
+
+  },
   pic: {
     width:325,
     height:300,
     marginTop: 5,
     borderRadius: 25
   }
-
 });

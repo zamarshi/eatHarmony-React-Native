@@ -19,10 +19,6 @@ import Home from './home';
 import Messages from './messages';
 import Profile from './profile';
 
-
-
-
-
 export default class Index extends Component {
   constructor(props){
     super(props)

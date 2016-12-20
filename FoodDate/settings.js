@@ -7,7 +7,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-native-simple-modal';
 import {
-
   StyleSheet,
   Image,
   Text,
@@ -50,10 +49,8 @@ export default class Settings extends Component {
             <Text style={{alignSelf:'center',marginTop:30,marginBottom:10,fontWeight:'bold',fontSize:16}}>Settings</Text>
           </View>
           <View style={{backgroundColor:'#EFEFF4',flex:1}}>
-            {/* SettingsList is imported from a package. It makes it easy to
-              render the list that looks like IOS Settings. */}
             <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
-              <SettingsList.Header headerStyle={{marginTop:15}}/>
+              <SettingsList.Header headerStyle={{marginTop:1}}/>
               <SettingsList.Item
                 icon={
                     <Image style={styles.imageStyle}
@@ -99,11 +96,12 @@ export default class Settings extends Component {
       return(
       <Modal
           open={this.state.openLocation}
-          modalDidOpen={()=> console.log('modal did open')}
           modalDidclose={() => this.setState({openLocation: false})}
           style={{alignItems: 'center'}}
           >
-            <Text style={{fontSize: 20, marginBottom:10}}>Choose Your Location: </Text>
+          <View style={{alignItems: 'center'}}>
+            <Text style={{fontSize: 25, marginBottom:10, alignItems: 'center'}}>Choose Your Location: </Text>
+          </View>
             {/*locationModalList takes the array of locations passed from the
               head branch and displays them in the modal  */}
             {this.locationModalList()}
@@ -111,7 +109,9 @@ export default class Settings extends Component {
             <TouchableOpacity
               style={{margin:5}}
               onPress={() => this.setState({openLocation: false})}>
-              <Text> Save </Text>
+              <View style={{alignItems: 'flex-end'}}>
+                <Text style={{fontSize:11}}> Cancel </Text>
+              </View>
             </TouchableOpacity>
       </Modal>
     )}
@@ -126,16 +126,20 @@ export default class Settings extends Component {
           modalDidclose={() => this.setState({openCuisine: false})}
           style={{alignItems: 'center'}}
           >
-            <Text style={{fontSize: 20, marginBottom:10}}>Choose Your Cuisine: </Text>
-
+          <View style={{alignItems: 'center'}}>
+            <Text style={{fontSize: 26, marginBottom:10}}>Choose Your Cuisine: </Text>
+          </View>
             {this.cuisineModalList()}
             <TouchableOpacity
               style={{margin:5}}
               onPress={() => this.setState({openCuisine: false})}>
-              <Text> Save </Text>
+              <View style={{alignItems: 'flex-end'}}>
+              <Text style={{fontSize:11}}> Cancel </Text>
+              </View>
             </TouchableOpacity>
       </Modal>
     )}
+
 
 
 
@@ -144,10 +148,10 @@ export default class Settings extends Component {
       var locs = this.state.locations.map(function(city, index){
         return(
         <TouchableOpacity
-          style={{margin:5}}
+          style={{margin:5, alignItems:'center'}}
           key={index}
           onPress={() => this.setState({location: city, openLocation: false})}>
-          <Text> {city} </Text>
+          <Text style={{fontSize: 18}}> {city} </Text>
         </TouchableOpacity>
       )
     }.bind(this))
@@ -157,15 +161,46 @@ export default class Settings extends Component {
       var cuis = this.state.cuisines.map(function(cuisine, index){
         return(
         <TouchableOpacity
-          style={{margin:5}}
+          style={{margin:5, alignItems:'center'}}
           key={index}
           onPress={() => this.setState({cuisine: cuisine, openCuisine: false})}>
-          <Text> {cuisine} </Text>
+          <Text style={{fontSize: 18}}> {cuisine} </Text>
         </TouchableOpacity>
       )
     }.bind(this))
       return cuis
     }
+
+    // changeLocation() {
+    //  AsyncStorage.getItem('jwt', (err, token) => {
+    //    axios.patch('http://localhost:3000/users', {
+    //      headers: {
+    //        Accept: 'application/json',
+    //        Authorization: `JWT ${token}`
+    //      }
+    //    }).then((userObj) => {
+    //      console.log(userObj.data)
+    //      userObj.data.forEach((user, index) => {
+    //        testCards[index] = {
+    //          id: user.id,
+    //          first_name: user.first_name,
+    //          age: 26,
+    //          friends: 2,
+    //          interests: 39,
+    //          image: image3,
+    //          description: '',
+    //          liker: true
+    //        };
+    //      });
+    //      console.log(testCards)
+    //      this.setState({ cards: testCards });
+    //    })
+    //    .catch(() => {
+    //      alert('There was an error fetching the users')
+    //    })
+    //    .done()
+    //  })
+    //  }
 
   }
   const styles = StyleSheet.create({

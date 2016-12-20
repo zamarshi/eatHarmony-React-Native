@@ -7,6 +7,8 @@
 
 
 import React, { Component } from 'react';
+import Router from './router'
+
 import {
   AppRegistry,
   StyleSheet,
@@ -15,93 +17,11 @@ import {
   TabBarIOS
 } from 'react-native';
 
-import Home from './home'
-// import Profile from './testProfile.js'
-import Settings from './settings.js'
-import Matches from './matches.js'
-import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Locations = ['Yaletown', 'Gastown', 'Kits', 'Dunbar', 'Coal Harbour', 'North Van', 'Burnaby', 'Surrey', 'Richmond']
-const Cuisines = ['Japanese', 'Chinese', 'Italian', 'French', 'Canadian', 'Burgers', 'Fast Food', 'Vietnamese', 'Greek', 'Bars and Pubs', 'Indian']
+const App = () => {
+  return(
+    <Router />
+  );
+};
 
-
-export default class FoodDate extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      selectedTab: 'Home'
-    };
-  }
-
-
-  render() {
-    return (
-      <TabBarIOS
-        selectedTab={this.state.selectedTab}>
-        <Icon.TabBarItemIOS
-          title="Settings"
-          iconName='gear'
-          iconColor='purple'
-          selected={this.state.selectedTab === 'Settings'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'Settings'
-            });
-          }}>
-         <Settings locations={Locations} cuisines={Cuisines}/>
-        </Icon.TabBarItemIOS>
-
-        <Icon.TabBarItemIOS
-          selected={this.state.selectedTab === 'Home'}
-          title="Swipe Screen"
-          iconName='home'
-          onPress={() => {
-            this.setState({
-              selectedTab: 'Home'
-            });
-          }}>
-          <Home />
-        </Icon.TabBarItemIOS>
-
-        <Icon.TabBarItemIOS
-          title="Matches"
-          iconName='star'
-          selected={this.state.selectedTab === 'Matches'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'Matches'
-            });
-          }}>
-         <Matches />
-        </Icon.TabBarItemIOS>
-
-      </TabBarIOS>
-    )
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'blue',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  icon: {
-    width:30,
-    height:30,
-    marginTop: 1
-  }
-});
-
-AppRegistry.registerComponent('FoodDate', () => FoodDate);
+AppRegistry.registerComponent('FoodDate', () => App);
