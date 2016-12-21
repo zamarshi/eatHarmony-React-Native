@@ -1,5 +1,5 @@
 # eatHarmony-React-Native
-<p align="center" color='red'>
+<p align="center" font-size=24 color='red'>
 
 Settings Page:
 </p>
