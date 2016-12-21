@@ -1,5 +1,5 @@
 # eatHarmony-React-Native
-<p align="center">
+<p align="center" fontSize=24>
 
 Settings Page:
 </p>
@@ -7,7 +7,7 @@ Settings Page:
 <div align="center">
 <a href="http://makeagif.com/Zjo6fX" title="Settings"><img src="http://i.makeagif.com/media/12-21-2016/Zjo6fX.gif" alt="Settings"></a>
 </div>
-<p align="center">
+<p align="center" fontSize=24>
 <br><br><br>
 Main Game Page:
 </p>
@@ -16,7 +16,7 @@ Main Game Page:
 </div>
 <br><br><br>
 
-<p align="center">
+<p align="center" fontSize=24>
 Chat:
 </p> 
 <div align="center">
