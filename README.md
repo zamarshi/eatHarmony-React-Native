@@ -1,5 +1,5 @@
 # eatHarmony-React-Native
-<h2 align="center" style="color:red">
+<h2 align="center" style="color:red;">
 Settings Page:
 </h2>
 <div align="center">
