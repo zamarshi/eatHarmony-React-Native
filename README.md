@@ -1,5 +1,5 @@
 # eatHarmony-React-Native
-<p align="justify">
+<p align="center">
 
 Settings Page:
 </p>
