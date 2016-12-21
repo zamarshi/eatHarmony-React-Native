@@ -1,9 +1,7 @@
 # eatHarmony-React-Native
-<h2 align="center" font-size=24 color='red'>
-
+<h2 align="center" style="color:red">
 Settings Page:
 </h2>
-
 <div align="center">
 <a href="http://makeagif.com/Zjo6fX" title="Settings"><img src="http://i.makeagif.com/media/12-21-2016/Zjo6fX.gif" alt="Settings"></a>
 </div>
