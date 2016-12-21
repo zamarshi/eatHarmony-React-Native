@@ -1,24 +1,24 @@
 # eatHarmony-React-Native
-<p align="center" font-size=24 color='red'>
+<h2 align="center" font-size=24 color='red'>
 
 Settings Page:
-</p>
+</h2>
 
 <div align="center">
 <a href="http://makeagif.com/Zjo6fX" title="Settings"><img src="http://i.makeagif.com/media/12-21-2016/Zjo6fX.gif" alt="Settings"></a>
 </div>
-<p align="center" fontSize=24>
+<h2 align="center" fontSize=24>
 <br><br><br>
 Main Game Page:
-</p>
+</h2>
 <div align="center">
 <a href="http://makeagif.com/iqOA9M" title="Swipe"><img src="http://i.makeagif.com/media/12-21-2016/iqOA9M.gif" alt="Swipe"></a>
 </div>
 <br><br><br>
 
-<p align="center" fontSize=24>
+<h2 align="center" fontSize=24>
 Chat:
-</p> 
+</h2> 
 <div align="center">
 <a href="http://makeagif.com/0-OS22" title="Chat"><img src="http://i.makeagif.com/media/12-21-2016/0-OS22.gif" alt="Chat"></a>
 </div>
