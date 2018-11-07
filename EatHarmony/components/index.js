@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
 
@@ -15,9 +9,9 @@ import {
   View
 } from 'react-native';
 
-import Home from './home';
+import Home from './Home';
 import Messages from './messages';
-import Profile from './profile';
+import Profile from './Profile';
 
 export default class Index extends Component {
   constructor(props){
